@@ -3,27 +3,77 @@ import datetime
 import nflgame
 import random
 
-def make_teams(num_teams):
-	""" Randomly selects players for each team.
+def get_players():
+	""" Gets players with this year's combined stats
 
-	:param num_teams: The number of teams needed.
+	:return: returns a list of the players
 	"""
 	now = datetime.datetime.now()
 	games = nflgame.games(now.year)
 	players = nflgame.combine_game_stats(games)
-	qbs = get_random_qb(num_teams, players)
+	return players
+
+def make_teams(teams):
+	""" Randomly selects players for each team.
+	Keeps the starred player if there is one.
+
+	:param teams: The information about the teams.
+	"""
+	players = get_players()
+	qbs = get_random_qbs(num_teams, players)
 	wrs = get_random_wrs(num_teams, players)
 	rbs = get_random_rbs(num_teams, players)
-	all_teams = []
+	new_teams = []
+	num_teams = len(teams)
 	for i in range(num_teams):
+		if len(teams[i]["starred"]) == 1:
+			if "qb" in teams[i]["starred"]:
+				qbs[i][0] = teams[i]["starred"]["qb"]
+			if "wr" in teams[i]["starred"]:
+				wrs[i][0] = teams[i]["starred"]["wr"]
+			if "rb" in teams[i]["starred"]:
+				rbs[i][0] = teams[i]["starred"]["rb"]
 		team = {}
 		team["QB"] = qbs[i]
 		team["WRs"] = wrs[i]
 		team["RBs"] = rbs[i]
-		all_teams.append(team)
-	return all_teams
+		new_teams.append(team)
+	return new_teams
 
-def get_random_qb(num_teams, players):
+def trade_in_players(trade_players):
+	""" Randomly selects top players to replace the trade in players.
+
+	:param trade_players: The players to be traded in.
+	:return: new random players to replace the traded players
+	"""
+	players = get_players()
+	new_players = {}
+	for position in trade_players:
+		if position == "qb":
+			new_qbs = get_random_qbs(1, players)
+			if len(trade_players["qbs"]) == 1:
+				new_players["qb"] = new_qbs[0]
+			else:
+				new_players["qb"] = new_qbs
+		elif position == "wr":
+			new_wrs = get_random_wrs(1, players)
+			if len(trade_players["wrs"]) == 1:
+				new_players["wr"] = new_wrs[0]
+			elif len(trade_players["wrs"]) == 2:
+				new_players["wr"] = new_wrs[0:1]
+			else:
+				new_players["wr"] = new_wrs
+		elif position == "rb":
+			new_rbs = get_random_rbs(1, players)
+			if len(trade_players["rbs"]) == 1:
+				new_players["rb"] = new_rbs[0]
+			elif len(trade_players["rbs"]) == 2:
+				new_players["rb"] = new_rbs[0:1]
+			else:
+				new_players["rb"] = new_rbs
+	return new_players
+
+def get_random_qbs(num_teams, players):
 	""" Randomly selects 1 top quarterbacks for each team.
 
 	:param num_teams: The number of teams needed.
@@ -77,13 +127,6 @@ def get_random_rbs(num_teams, players):
 		top_rbs.remove(rb3)
 		rbs.append([rb1, rb2, rb3])
 	return rbs
-
-def trade_in_players(players):
-	""" Randomly selects top players to replace the trade in players.
-
-	:param players: The players to be traded in.
-	"""
-	print "a"
 
 teams = make_teams(5)
 i = 1
