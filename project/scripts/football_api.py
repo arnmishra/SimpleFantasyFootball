@@ -20,24 +20,26 @@ def make_teams(teams):
 	:param teams: The information about the teams.
 	"""
 	players = get_players()
+	num_teams = len(teams)
 	qbs = get_random_qbs(num_teams, players)
 	wrs = get_random_wrs(num_teams, players)
 	rbs = get_random_rbs(num_teams, players)
-	new_teams = []
-	num_teams = len(teams)
-	for i in range(num_teams):
-		if len(teams[i]["starred"]) == 1:
-			if "qb" in teams[i]["starred"]:
-				qbs[i][0] = teams[i]["starred"]["qb"]
-			if "wr" in teams[i]["starred"]:
-				wrs[i][0] = teams[i]["starred"]["wr"]
-			if "rb" in teams[i]["starred"]:
-				rbs[i][0] = teams[i]["starred"]["rb"]
+	new_teams = {}
+	i = 0
+	for team_name in teams:
+		if "starred" in teams[team_name]:
+			if "qb" in teams[team_name]["starred"]:
+				qbs[i][0] = teams[team_name]["starred"]["qb"]
+			if "wr" in teams[team_name]["starred"]:
+				wrs[i][0] = teams[team_name]["starred"]["wr"]
+			if "rb" in teams[team_name]["starred"]:
+				rbs[i][0] = teams[team_name]["starred"]["rb"]
 		team = {}
 		team["QB"] = qbs[i]
 		team["WRs"] = wrs[i]
 		team["RBs"] = rbs[i]
-		new_teams.append(team)
+		new_teams[team_name] = team
+		i += 1
 	return new_teams
 
 def trade_in_players(trade_players):
@@ -128,12 +130,12 @@ def get_random_rbs(num_teams, players):
 		rbs.append([rb1, rb2, rb3])
 	return rbs
 
-teams = make_teams(5)
-i = 1
-for team in teams:
-	print "------------------------------------------"
-	print "Team %i" % i
-	for position in team:
-		print position, team[position]
-	i += 1
-print "------------------------------------------"
+# teams = make_teams(5)
+# i = 1
+# for team in teams:
+# 	print "------------------------------------------"
+# 	print "Team %i" % i
+# 	for position in team:
+# 		print position, team[position]
+# 	i += 1
+# print "------------------------------------------"

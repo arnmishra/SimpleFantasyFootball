@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Set Up Teams</title>
+  </head>
+  <body>
+	  <form action="/view_teams" method="POST"> 
+      {% for i in range(num_teams) %}
+        Team {{ i+1 }} Name: <input type="text" name="team_names"> <br>
+      {% endfor %}
+      <button>Submit Team Names</button>
+	  </form>
+  </body>
+ </html>

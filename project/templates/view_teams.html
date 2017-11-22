@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Set Up Teams</title>
+  </head>
+  <body>
+    {% for name in teams %}
+      <h2>Team {{ name }}:</h2>
+        <h3> Quarterbacks </h3>
+        {% for qb in teams[name]["QB"] %}
+          <p>{{ qb }}</p>
+        {% endfor %}
+        <h3> Receivers </h3>
+        {% for wr in teams[name]["WRs"] %}
+          <p>{{ wr }}</p>
+        {% endfor %}
+        <h3> Running Backs </h3>
+        {% for rb in teams[name]["RBs"] %}
+          <p>{{ rb }}</p>
+        {% endfor %}
+    {% endfor %}
+  </body>
+ </html>
