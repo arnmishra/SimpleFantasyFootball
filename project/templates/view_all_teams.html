@@ -9,16 +9,16 @@
     {% for team in teams %}
       <h2>Team <a href="/team/{{ game_name }}/{{ team.team_name }}">{{ team.team_name }}</a>:</h2>
         <h3> Quarterbacks </h3>
-          <p>{{ team.qb1 }}</p>
-          <p>{{ team.qb2 }}</p>
+          <p>{{ team.qb1[0].player.full_name }}: Average Points = {{ team.qb1[1] }}</p>
+          <p>{{ team.qb2[0].player.full_name }}: Average Points = {{ team.qb2[1] }}</p>
         <h3> Receivers </h3>
-          <p>{{ team.wr1 }}</p>
-          <p>{{ team.wr2 }}</p>
-          <p>{{ team.wr3 }}</p>
+          <p>{{ team.wr1[0].player.full_name }}: Average Points = {{ team.wr1[1] }}</p>
+          <p>{{ team.wr2[0].player.full_name }}: Average Points = {{ team.wr2[1] }}</p>
+          <p>{{ team.wr3[0].player.full_name }}: Average Points = {{ team.wr3[1] }}</p>
         <h3> Running Backs </h3>
-          <p>{{ team.rb1 }}</p>
-          <p>{{ team.rb2 }}</p>
-          <p>{{ team.rb3 }}</p>
+          <p>{{ team.rb1[0].player.full_name }}: Average Points = {{ team.rb1[1] }}</p>
+          <p>{{ team.rb2[0].player.full_name }}: Average Points = {{ team.rb2[1] }}</p>
+          <p>{{ team.rb3[0].player.full_name }}: Average Points = {{ team.rb3[1] }}</p>
     {% endfor %}
   </body>
  </html>
