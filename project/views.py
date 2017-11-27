@@ -1,6 +1,6 @@
 import datetime
 from project import app, db
-from models import Team, Player
+from models import Team
 from flask import render_template, url_for, request, redirect
 from project.scripts.football_api import make_teams, trade_in_players
 
@@ -48,15 +48,15 @@ def view_all_teams():
             team = Team(game_name, team_name, "None")
             db.session.add(team)
         teams.append(team)
-    db.session.commit()
     make_teams(teams)
+    db.session.commit()
     return render_template("view_all_teams.html", game_name=game_name, teams=teams)
 
 @app.route("/team/<game_name>/<team_name>", methods=['GET'])
-def view_team(team_name):
+def view_team(game_name, team_name):
     """ Renders a page with only your team and their scores
 
     :return: view_team.html
     """
-    team = Team.query.filter_by(game_name=game_name).filter_by(team_name=team_name).first()
-    return render_template("view_team.html", team=team)
+    team = Team.query.filter_by(game_name=game_name, team_name=team_name).first()
+    return render_template("view_team.html", team=team, game_name = game_name)

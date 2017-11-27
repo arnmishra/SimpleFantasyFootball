@@ -73,11 +73,10 @@ def get_random_qbs(teams, players, week_num):
 	top_qb_stats = []
 	for qb in top_qbs:
 		average_score = (qb.passing_yds*0.04 + qb.rushing_yds*0.01 + qb.passing_tds*4 + qb.rushing_tds*6 - qb.passing_int*2)/week_num
-		top_qb_stats.append([qb, round(average_score,2)])
+		top_qb_stats.append([qb.player.full_name, round(average_score,2)])
 	for team in teams:
 		if not team.starred_position == "qb1":
 			qb1 = random.choice(top_qb_stats)
-			# print qb1
 			team.qb1 = qb1
 			top_qb_stats.remove(qb1)
 		if not team.starred_position == "qb2":
@@ -95,7 +94,7 @@ def get_random_wrs(teams, players, week_num):
 	top_wr_stats = []
 	for wr in top_wrs:
 		average_score = ((wr.receiving_yds+wr.rushing_yds)*0.1 + (wr.receiving_tds+wr.rushing_tds)*6 - wr.fumbles_lost*2)/week_num
-		top_wr_stats.append([wr, round(average_score,2)])
+		top_wr_stats.append([wr.player.full_name, round(average_score,2)])
 	for team in teams:
 		if not team.starred_position == "wr1":
 			wr1 = random.choice(top_wr_stats)
@@ -120,7 +119,7 @@ def get_random_rbs(teams, players, week_num):
 	top_rb_stats = []
 	for rb in top_rbs:
 		average_score = ((rb.rushing_yds+rb.receiving_yds)*0.1 + (rb.rushing_tds+rb.receiving_tds)*6 - rb.fumbles_lost*2)/week_num
-		top_rb_stats.append([rb, round(average_score,2)])
+		top_rb_stats.append([rb.player.full_name, round(average_score,2)])
 	for team in teams:
 		if not team.starred_position == "rb1":
 			rb1 = random.choice(top_rb_stats)
