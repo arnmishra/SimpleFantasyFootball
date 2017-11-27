@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Set Up Teams</title>
+  </head>
+  <body>
+    {% for team in teams %}
+      <h2>Team {{ team.team_name }}:</h2>
+        <h3> Quarterbacks </h3>
+          <p>{{ team.qb1 }}</p>
+          <p>{{ team.qb2 }}</p>
+        <h3> Receivers </h3>
+          <p>{{ team.wr1 }}</p>
+          <p>{{ team.wr2 }}</p>
+          <p>{{ team.wr3 }}</p>
+        <h3> Running Backs </h3>
+          <p>{{ team.rb1 }}</p>
+          <p>{{ team.rb2 }}</p>
+          <p>{{ team.rb3 }}</p>
+    {% endfor %}
+  </body>
+ </html>

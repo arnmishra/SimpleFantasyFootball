@@ -2,6 +2,7 @@
 import datetime
 import nflgame
 import random
+from threading import Thread
 
 def get_players():
 	""" Gets players with this year's combined stats
@@ -20,27 +21,9 @@ def make_teams(teams):
 	:param teams: The information about the teams.
 	"""
 	players = get_players()
-	num_teams = len(teams)
-	qbs = get_random_qbs(num_teams, players)
-	wrs = get_random_wrs(num_teams, players)
-	rbs = get_random_rbs(num_teams, players)
-	new_teams = {}
-	i = 0
-	for team_name in teams:
-		if "starred" in teams[team_name]:
-			if "qb" in teams[team_name]["starred"]:
-				qbs[i][0] = teams[team_name]["starred"]["qb"]
-			if "wr" in teams[team_name]["starred"]:
-				wrs[i][0] = teams[team_name]["starred"]["wr"]
-			if "rb" in teams[team_name]["starred"]:
-				rbs[i][0] = teams[team_name]["starred"]["rb"]
-		team = {}
-		team["QB"] = qbs[i]
-		team["WRs"] = wrs[i]
-		team["RBs"] = rbs[i]
-		new_teams[team_name] = team
-		i += 1
-	return new_teams
+	get_random_qbs(teams, players)
+	get_random_wrs(teams, players)
+	get_random_rbs(teams, players)
 
 def trade_in_players(trade_players):
 	""" Randomly selects top players to replace the trade in players.
@@ -75,60 +58,67 @@ def trade_in_players(trade_players):
 				new_players["rb"] = new_rbs
 	return new_players
 
-def get_random_qbs(num_teams, players):
+def get_random_qbs(teams, players):
 	""" Randomly selects 1 top quarterbacks for each team.
 
-	:param num_teams: The number of teams needed.
+	:param teams: The information about the teams.
 	:param players: Stats on players this season
 	"""
-	top_qbs = str(players.passing().sort('passing_yds').limit(num_teams * 4))
+	top_qbs = str(players.passing().sort('passing_yds').limit(len(teams) * 4))
 	top_qbs = top_qbs[1:-2].split(", ")
-	qbs = []
-	for i in range(num_teams):
-		qb1 = random.choice(top_qbs)
-		top_qbs.remove(qb1)
-		qb2 = random.choice(top_qbs)
-		top_qbs.remove(qb2)
-		qbs.append([qb1, qb2])
-	return qbs
+	for team in teams:
+		if not team.starred_position == "qb1":
+			qb1 = random.choice(top_qbs)
+			team.qb1 = qb1
+			top_qbs.remove(qb1)
+		if not team.starred_position == "qb2":
+			qb2 = random.choice(top_qbs)
+			team.qb2 = qb2
+			top_qbs.remove(qb2)
 
-def get_random_wrs(num_teams, players):
+def get_random_wrs(teams, players):
 	""" Randomly selects 2 top wide receivers for each team.
 
-	:param num_teams: The number of teams needed.
+	:param teams: The information about the teams.
 	:param players: Stats on players this season
 	"""
-	top_wrs = str(players.receiving().sort('receiving_yds').limit(num_teams * 6))
+	top_wrs = str(players.receiving().sort('receiving_yds').limit(len(teams) * 6))
 	top_wrs = top_wrs[1:-1].split(", ")
-	wrs = []
-	for i in range(num_teams):
-		wr1 = random.choice(top_wrs)
-		top_wrs.remove(wr1)
-		wr2 = random.choice(top_wrs)
-		top_wrs.remove(wr2)
-		wr3 = random.choice(top_wrs)
-		top_wrs.remove(wr3)
-		wrs.append([wr1, wr2, wr3])
-	return wrs
+	for team in teams:
+		if not team.starred_position == "wr1":
+			wr1 = random.choice(top_wrs)
+			team.wr1 = wr1
+			top_wrs.remove(wr1)
+		if not team.starred_position == "wr2":
+			wr2 = random.choice(top_wrs)
+			team.wr2 = wr2
+			top_wrs.remove(wr2)
+		if not team.starred_position == "wr3":
+			wr3 = random.choice(top_wrs)
+			team.wr3 = wr3
+			top_wrs.remove(wr3)
 
-def get_random_rbs(num_teams, players):
+def get_random_rbs(teams, players):
 	""" Randomly selects 2 top running backs for each team.
 
-	:param num_teams: The number of teams needed.
+	:param teams: The information about the teams.
 	:param players: Stats on players this season
 	"""
-	top_rbs = str(players.rushing().sort('rushing_yds').limit(num_teams * 6))
+	top_rbs = str(players.rushing().sort('rushing_yds').limit(len(teams) * 6))
 	top_rbs = top_rbs[1:-1].split(", ")
-	rbs = []
-	for i in range(num_teams):
-		rb1 = random.choice(top_rbs)
-		top_rbs.remove(rb1)
-		rb2 = random.choice(top_rbs)
-		top_rbs.remove(rb2)
-		rb3 = random.choice(top_rbs)
-		top_rbs.remove(rb3)
-		rbs.append([rb1, rb2, rb3])
-	return rbs
+	for team in teams:
+		if not team.starred_position == "rb1":
+			rb1 = random.choice(top_rbs)
+			team.rb1 = rb1
+			top_rbs.remove(rb1)
+		if not team.starred_position == "rb2":
+			rb2 = random.choice(top_rbs)
+			team.rb2 = rb2
+			top_rbs.remove(rb2)
+		if not team.starred_position == "rb3":
+			rb3 = random.choice(top_rbs)
+			team.rb3 = rb3
+			top_rbs.remove(rb3)
 
 # teams = make_teams(5)
 # i = 1
