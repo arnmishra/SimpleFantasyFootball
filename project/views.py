@@ -52,11 +52,14 @@ def view_all_teams():
     db.session.commit()
     return render_template("view_all_teams.html", game_name=game_name, teams=teams)
 
-@app.route("/team/<game_name>/<team_name>", methods=['GET'])
+@app.route("/team/<game_name>/<team_name>", methods=['GET', 'POST'])
 def view_team(game_name, team_name):
     """ Renders a page with only your team and their scores
 
     :return: view_team.html
     """
     team = Team.query.filter_by(game_name=game_name, team_name=team_name).first()
+    if request.method == 'POST':
+        team.starred_position = request.form["star"]
+        db.session.commit()
     return render_template("view_team.html", team=team, game_name = game_name)

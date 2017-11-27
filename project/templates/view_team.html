@@ -6,17 +6,22 @@
   </head>
   <body>
     <h1> Game: {{ game_name }}</h1>
-    <h2>Team <a href="/team/{{ game_name }}/{{ team.team_name }}">{{ team.team_name }}</a>:</h2>
+    <h2>Team {{ team.team_name }}:</h2>
+    <form action="/team/{{ game_name }}/{{ team.team_name }}" method="POST">
       <h3> Quarterbacks </h3>
       <p>
         {% if team.starred_position == "qb1" %}
           Starred:
+        {% else %}
+        <input type="radio" name="star" value="qb1"> Star:
         {% endif %}
         {{ team.qb1[0]}}: Average Points = {{ team.qb1[1] }}
       </p>
       <p>
         {% if team.starred_position == "qb2" %}
           Starred:
+        {% else %}
+        <input type="radio" name="star" value="qb2"> Star:
         {% endif %}
         {{ team.qb2[0]}}: Average Points = {{ team.qb2[1] }}
       </p>
@@ -24,18 +29,24 @@
       <p>
         {% if team.starred_position == "wr1" %}
           Starred:
+        {% else %}
+        <input type="radio" name="star" value="wr1"> Star:
         {% endif %}
         {{ team.wr1[0]}}: Average Points = {{ team.wr1[1] }}
       </p>
       <p>
         {% if team.starred_position == "wr2" %}
           Starred:
+        {% else %}
+        <input type="radio" name="star" value="wr2"> Star:
         {% endif %}
         {{ team.wr2[0]}}: Average Points = {{ team.wr2[1] }}
       </p>
       <p>
         {% if team.starred_position == "wr3" %}
           Starred:
+        {% else %}
+        <input type="radio" name="star" value="wr3"> Star:
         {% endif %}
         {{ team.wr3[0]}}: Average Points = {{ team.wr3[1] }}
       </p>
@@ -43,20 +54,28 @@
       <p>
         {% if team.starred_position == "rb1" %}
           Starred:
+        {% else %}
+        <input type="radio" name="star" value="rb1"> Star:
         {% endif %}
         {{ team.rb1[0]}}: Average Points = {{ team.rb1[1] }}
       </p>
       <p>
         {% if team.starred_position == "rb2" %}
           Starred:
+        {% else %}
+        <input type="radio" name="star" value="rb2"> Star:
         {% endif %}
         {{ team.rb2[0]}}: Average Points = {{ team.rb2[1] }}
       </p>
       <p>
         {% if team.starred_position == "rb3" %}
           Starred:
+        {% else %}
+        <input type="radio" name="star" value="rb3"> Star:
         {% endif %}
         {{ team.rb3[0]}}: Average Points = {{ team.rb3[1] }}
       </p>
+      <button>Star Player</button>
+    </form>
   </body>
  </html>
