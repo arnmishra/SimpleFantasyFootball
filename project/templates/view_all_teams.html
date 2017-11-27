@@ -5,8 +5,9 @@
     <title>Set Up Teams</title>
   </head>
   <body>
+    <h1> Game: {{ game_name }}</h1>
     {% for team in teams %}
-      <h2>Team {{ team.team_name }}:</h2>
+      <h2>Team <a href="/team/{{ game_name }}/{{ team.team_name }}">{{ team.team_name }}</a>:</h2>
         <h3> Quarterbacks </h3>
           <p>{{ team.qb1 }}</p>
           <p>{{ team.qb2 }}</p>

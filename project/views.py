@@ -8,15 +8,23 @@ from project.scripts.football_api import make_teams, trade_in_players
 def index():
     """ Renders the home page
 
-    :return: initialize business or home page
+    :return: index.html
     """
     return render_template("index.html")
 
+@app.route("/set_up_new_game", methods=['GET'])
+def set_up_new_game():
+    """ Renders a page to set up a new game
+
+    :return: index.html
+    """
+    return render_template("set_up_new_game.html")
+
 @app.route("/set_up_teams", methods=['GET', 'POST'])
 def set_up_teams():
-    """ Renders the home page
+    """ Renders a form to submit team names
 
-    :return: initialize business or home page
+    :return: set_up_teams.html
     """
     if request.method == "GET":
         redirect("/")
@@ -25,20 +33,30 @@ def set_up_teams():
 
 @app.route("/view_all_teams", methods=['GET', 'POST'])
 def view_all_teams():
-    """ Renders the home page
+    """ Renders a view of the players on every team
 
-    :return: initialize business or home page
+    :return: view_all_teams
     """
     if request.method == "GET":
         redirect("/")
     team_names = request.form.getlist("team_names")
+    game_name = request.form["game_name"]
     teams = []
     for team_name in team_names:
         team = Team.query.filter_by(team_name=team_name).first()
         if not team:
-            team = Team(team_name, "None")
+            team = Team(game_name, team_name, "None")
             db.session.add(team)
         teams.append(team)
     db.session.commit()
     make_teams(teams)
-    return render_template("view_all_teams.html", teams=teams)
+    return render_template("view_all_teams.html", game_name=game_name, teams=teams)
+
+@app.route("/team/<game_name>/<team_name>", methods=['GET'])
+def view_team(team_name):
+    """ Renders a page with only your team and their scores
+
+    :return: view_team.html
+    """
+    team = Team.query.filter_by(game_name=game_name).filter_by(team_name=team_name).first()
+    return render_template("view_team.html", team=team)

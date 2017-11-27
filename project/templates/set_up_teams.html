@@ -6,6 +6,7 @@
   </head>
   <body>
 	  <form action="/view_all_teams" method="POST"> 
+      Game Name: <input type="text" name="game_name"><br>
       {% for i in range(num_teams) %}
         Team {{ i+1 }} Name: <input type="text" name="team_names"> <br>
       {% endfor %}
