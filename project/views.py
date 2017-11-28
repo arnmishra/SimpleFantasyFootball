@@ -50,6 +50,11 @@ def view_all_teams():
         teams.append(team)
     make_teams(teams)
     db.session.commit()
+
+    """
+        Return all this week's games
+    """
+
     return render_template("view_all_teams.html", game_name=game_name, teams=teams)
 
 @app.route("/team/<game_name>/<team_name>", methods=['GET', 'POST'])
