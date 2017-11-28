@@ -16,6 +16,7 @@ def get_players():
 	return players
 
 def get_year_week():
+	""" Get current NFL Year and Week """
 	now = datetime.datetime.now()
 	for week_num in range(17):
 		games = nflgame.games(2017, week=(week_num+1))
@@ -37,6 +38,10 @@ def make_teams(teams):
 	get_random_rbs(teams, players, week_num)
 
 def get_player_scores(team):
+	""" Get scores of all players for current week.
+
+	:param team: Team who's players' scores are being queried
+	"""
 	team.qb1 = update_live_player_score(team.qb1)
 	team.qb2 = update_live_player_score(team.qb2)
 	team.wr1 = update_live_player_score(team.wr1)
@@ -47,6 +52,11 @@ def get_player_scores(team):
 	team.rb3 = update_live_player_score(team.rb3)
 
 def update_live_player_score(player):
+	""" Get Live Player Score for current week
+
+	:param player: Player who's score is being queried
+	:return: Player object with updated live score
+	"""
 	year,week_num = get_year_week()
 	player_obj = nflgame.find(player[0])[0]
 	player_stats = player_obj.stats(year,week=week_num)
@@ -54,6 +64,11 @@ def update_live_player_score(player):
 	return player
 
 def get_player_score(player):
+	""" Gets a player's score based on stats provided
+
+	:param player: Player who's score is being queried
+	:return: Player's Fantasy Score
+	"""
 	return player.passing_yds*0.04 + (player.rushing_yds+player.receiving_yds)*0.01 \
 		+ player.passing_tds*4 + (player.rushing_tds+player.receiving_tds)*6 \
 		- (player.passing_int+player.fumbles_lost)*2
