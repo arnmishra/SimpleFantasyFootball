@@ -134,6 +134,9 @@ def get_random_rbs(teams, players, week_num):
 			team.rb3 = rb3
 			top_rb_stats.remove(rb3)
 
+def get_games(week):
+	return nflgame._search_schedule(year=2017, week=week_num)
+
 # teams = make_teams(5)
 # i = 1
 # for team in teams:

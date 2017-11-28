@@ -2,7 +2,7 @@ import datetime
 from project import app, db
 from models import Team
 from flask import render_template, url_for, request, redirect
-from project.scripts.football_api import make_teams, trade_in_players
+from project.scripts.football_api import make_teams, trade_in_players, get_games
 
 @app.route("/", methods=['GET'])
 def index():
@@ -54,8 +54,8 @@ def view_all_teams():
     """
         Return all this week's games
     """
-
-    return render_template("view_all_teams.html", game_name=game_name, teams=teams)
+    games = get_games(13)
+    return render_template("view_all_teams.html", game_name=game_name, teams=teams, games=games)
 
 @app.route("/team/<game_name>/<team_name>", methods=['GET', 'POST'])
 def view_team(game_name, team_name):
