@@ -10,10 +10,20 @@ def get_players():
 
 	:return: returns a list of the players
 	"""
-	now = datetime.datetime.now()
-	games = nflgame.games(now.year)
+	year,week_num = get_year_week()
+	games = nflgame.games(year)
 	players = nflgame.combine_game_stats(games)
 	return players
+
+def get_year_week():
+	""" Get current NFL Year and Week """
+	now = datetime.datetime.now()
+	for week_num in range(17):
+		games = nflgame.games(2017, week=(week_num+1))
+		if len(games) == 0:
+			break
+	return now.year, week_num
+
 
 def make_teams(teams):
 	""" Randomly selects players for each team.
@@ -21,14 +31,47 @@ def make_teams(teams):
 
 	:param teams: The information about the teams.
 	"""
-	for week_num in range(17):
-		games = nflgame.games(2017, week=(week_num+1))
-		if len(games) == 0:
-			break
+	year,week_num = get_year_week()
 	players = get_players()
 	get_random_qbs(teams, players, week_num)
 	get_random_wrs(teams, players, week_num)
 	get_random_rbs(teams, players, week_num)
+
+def get_player_scores(team):
+	""" Get scores of all players for current week.
+
+	:param team: Team who's players' scores are being queried
+	"""
+	team.qb1 = update_live_player_score(team.qb1)
+	team.qb2 = update_live_player_score(team.qb2)
+	team.wr1 = update_live_player_score(team.wr1)
+	team.wr2 = update_live_player_score(team.wr2)
+	team.wr3 = update_live_player_score(team.wr3)
+	team.rb1 = update_live_player_score(team.rb1)
+	team.rb2 = update_live_player_score(team.rb2)
+	team.rb3 = update_live_player_score(team.rb3)
+
+def update_live_player_score(player):
+	""" Get Live Player Score for current week
+
+	:param player: Player who's score is being queried
+	:return: Player object with updated live score
+	"""
+	year,week_num = get_year_week()
+	player_obj = nflgame.find(player[0])[0]
+	player_stats = player_obj.stats(year,week=week_num)
+	player = [player[0], player[1], [week_num, get_player_score(player_stats)]]
+	return player
+
+def get_player_score(player):
+	""" Gets a player's score based on stats provided
+
+	:param player: Player who's score is being queried
+	:return: Player's Fantasy Score
+	"""
+	return player.passing_yds*0.04 + (player.rushing_yds+player.receiving_yds)*0.01 \
+		+ player.passing_tds*4 + (player.rushing_tds+player.receiving_tds)*6 \
+		- (player.passing_int+player.fumbles_lost)*2
 
 def trade_in_players(trade_players):
 	""" Randomly selects top players to replace the trade in players.
@@ -72,7 +115,7 @@ def get_random_qbs(teams, players, week_num):
 	top_qbs = players.passing().sort('passing_yds').limit(len(teams) * 4)
 	top_qb_stats = []
 	for qb in top_qbs:
-		average_score = (qb.passing_yds*0.04 + qb.rushing_yds*0.01 + qb.passing_tds*4 + qb.rushing_tds*6 - qb.passing_int*2)/week_num
+		average_score = get_player_score(qb)/week_num
 		top_qb_stats.append([qb.player.full_name, round(average_score,2)])
 	for team in teams:
 		if not team.starred_position == "qb1":
@@ -93,7 +136,7 @@ def get_random_wrs(teams, players, week_num):
 	top_wrs = players.receiving().sort('receiving_yds').limit(len(teams) * 6)
 	top_wr_stats = []
 	for wr in top_wrs:
-		average_score = ((wr.receiving_yds+wr.rushing_yds)*0.1 + (wr.receiving_tds+wr.rushing_tds)*6 - wr.fumbles_lost*2)/week_num
+		average_score = get_player_score(wr)/week_num
 		top_wr_stats.append([wr.player.full_name, round(average_score,2)])
 	for team in teams:
 		if not team.starred_position == "wr1":
@@ -118,7 +161,7 @@ def get_random_rbs(teams, players, week_num):
 	top_rbs = players.rushing().sort('rushing_yds').limit(len(teams) * 6)
 	top_rb_stats = []
 	for rb in top_rbs:
-		average_score = ((rb.rushing_yds+rb.receiving_yds)*0.1 + (rb.rushing_tds+rb.receiving_tds)*6 - rb.fumbles_lost*2)/week_num
+		average_score = get_player_score(rb)/week_num
 		top_rb_stats.append([rb.player.full_name, round(average_score,2)])
 	for team in teams:
 		if not team.starred_position == "rb1":
@@ -134,7 +177,7 @@ def get_random_rbs(teams, players, week_num):
 			team.rb3 = rb3
 			top_rb_stats.remove(rb3)
 
-def get_games(week):
+def get_games(week_num):
 	return nflgame._search_schedule(year=2017, week=week_num)
 
 # teams = make_teams(5)

@@ -2,7 +2,7 @@ import datetime
 from project import app, db
 from models import Team
 from flask import render_template, url_for, request, redirect
-from project.scripts.football_api import make_teams, trade_in_players, get_games
+from project.scripts.football_api import make_teams, trade_in_players, get_games, get_player_scores
 
 @app.route("/", methods=['GET'])
 def index():
@@ -64,7 +64,8 @@ def view_team(game_name, team_name):
     :return: view_team.html
     """
     team = Team.query.filter_by(game_name=game_name, team_name=team_name).first()
+    get_player_scores(team)
     if request.method == 'POST':
         team.starred_position = request.form["star"]
-        db.session.commit()
+    db.session.commit()
     return render_template("view_team.html", team=team, game_name = game_name)
