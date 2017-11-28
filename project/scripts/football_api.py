@@ -50,7 +50,7 @@ def update_live_player_score(player):
 	year,week_num = get_year_week()
 	player_obj = nflgame.find(player[0])[0]
 	player_stats = player_obj.stats(year,week=week_num)
-	player = [player[0], player[1], get_player_score(player_stats)]
+	player = [player[0], player[1], [week_num, get_player_score(player_stats)]]
 	return player
 
 def get_player_score(player):
