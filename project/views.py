@@ -71,10 +71,8 @@ def view_team(game_name, team_name):
     game = Game.query.filter_by(game_name=game_name).first()
     if request.method == 'POST':
         if "star" in request.form:
-            print "star"
             team.starred_position = request.form["star"]
         if "trade_players" in request.form:
-            print "trade in"
             trade_players = request.form.getlist("trade_players")
             trade_in_players(team, game, trade_players)
     if request.method == 'GET':

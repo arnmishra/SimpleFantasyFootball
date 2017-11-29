@@ -86,21 +86,21 @@ def trade_in_players(team, game, trade_players):
 	players = get_players()
 	for position in trade_players:
 		if position == "qb1":
-			team.qb1, game.top_qb_stats = trade_in(game.top_qb_stats, team.qb1)
+			team.qb1, game.available_qbs = trade_in(game.available_qbs, team.qb1)
 		elif position == "qb2":
-			team.qb2, game.top_qb_stats = trade_in(game.top_qb_stats, team.qb2)
+			team.qb2, game.available_qbs = trade_in(game.available_qbs, team.qb2)
 		elif position == "wr1":
-			team.wr1, game.top_wr_stats = trade_in(game.top_wr_stats, team.wr1)
+			team.wr1, game.available_wrs = trade_in(game.available_wrs, team.wr1)
 		elif position == "wr2":
-			team.wr2, game.top_wr_stats = trade_in(game.top_wr_stats, team.wr2)
+			team.wr2, game.available_wrs = trade_in(game.available_wrs, team.wr2)
 		elif position == "wr3":
-			team.wr3, game.top_wr_stats = trade_in(game.top_wr_stats, team.wr3)
+			team.wr3, game.available_wrs = trade_in(game.available_wrs, team.wr3)
 		elif position == "rb1":
-			team.rb1, game.top_rb_stats = trade_in(game.top_rb_stats, team.rb1)
+			team.rb1, game.available_rbs = trade_in(game.available_rbs, team.rb1)
 		elif position == "rb2":
-			team.rb2, game.top_rb_stats = trade_in(game.top_rb_stats, team.rb2)
+			team.rb2, game.available_rbs = trade_in(game.available_rbs, team.rb2)
 		elif position == "rb3":
-			team.rb3, game.top_rb_stats = trade_in(game.top_rb_stats, team.rb3)
+			team.rb3, game.available_rbs = trade_in(game.available_rbs, team.rb3)
 
 def trade_in(top_player_stats, player):
 	""" Trade in an individual player with a new random player.
