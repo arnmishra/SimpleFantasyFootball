@@ -15,6 +15,7 @@
         {% else %}
         <input type="radio" name="star" value="qb1"> Star:
         {% endif %}
+        <input class="single-checkbox" type="checkbox" name="trade_players" value="qb1">Trade In:
         {{ team.qb1[0]}}: Average Points = {{ team.qb1[1] }}; Week {{ team.qb1[2][0] }} Score = {{ team.qb1[2][1] }}
       </p>
       <p>
@@ -23,6 +24,7 @@
         {% else %}
         <input type="radio" name="star" value="qb2"> Star:
         {% endif %}
+        <input class="single-checkbox" type="checkbox" name="trade_players" value="qb2">Trade In:
         {{ team.qb2[0]}}: Average Points = {{ team.qb2[1] }}; Week {{ team.qb2[2][0] }} Score = {{ team.qb2[2][1] }}
       </p>
       <h3> Receivers </h3>
@@ -32,6 +34,7 @@
         {% else %}
         <input type="radio" name="star" value="wr1"> Star:
         {% endif %}
+        <input class="single-checkbox" type="checkbox" name="trade_players" value="wr1">Trade In:
         {{ team.wr1[0]}}: Average Points = {{ team.wr1[1] }}; Week {{ team.wr1[2][0] }} Score = {{ team.wr1[2][1] }}
       </p>
       <p>
@@ -40,6 +43,7 @@
         {% else %}
         <input type="radio" name="star" value="wr2"> Star:
         {% endif %}
+        <input class="single-checkbox" type="checkbox" name="trade_players" value="wr2">Trade In:
         {{ team.wr2[0]}}: Average Points = {{ team.wr2[1] }}; Week {{ team.wr2[2][0] }} Score = {{ team.wr2[2][1] }}
       </p>
       <p>
@@ -48,6 +52,7 @@
         {% else %}
         <input type="radio" name="star" value="wr3"> Star:
         {% endif %}
+        <input class="single-checkbox" type="checkbox" name="trade_players" value="wr3">Trade In:
         {{ team.wr3[0]}}: Average Points = {{ team.wr3[1] }}; Week {{ team.wr3[2][0] }} Score = {{ team.wr3[2][1] }}
       </p>
       <h3> Running Backs </h3>
@@ -57,6 +62,7 @@
         {% else %}
         <input type="radio" name="star" value="rb1"> Star:
         {% endif %}
+        <input class="single-checkbox" type="checkbox" name="trade_players" value="rb1">Trade In:
         {{ team.rb1[0]}}: Average Points = {{ team.rb1[1] }}; Week {{ team.rb1[2][0] }} Score = {{ team.rb1[2][1] }}
       </p>
       <p>
@@ -65,6 +71,7 @@
         {% else %}
         <input type="radio" name="star" value="rb2"> Star:
         {% endif %}
+        <input class="single-checkbox" type="checkbox" name="trade_players" value="rb2">Trade In:
         {{ team.rb2[0]}}: Average Points = {{ team.rb2[1] }}; Week {{ team.rb2[2][0] }} Score = {{ team.rb2[2][1] }}
       </p>
       <p>
@@ -73,9 +80,20 @@
         {% else %}
         <input type="radio" name="star" value="rb3"> Star:
         {% endif %}
+        <input class="single-checkbox" type="checkbox" name="trade_players" value="rb3">Trade In:
         {{ team.rb3[0]}}: Average Points = {{ team.rb3[1] }}; Week {{ team.rb3[2][0] }} Score = {{ team.rb3[2][1] }}
       </p>
-      <button>Star Player</button>
+      <button>Star/Trade In Player(s)</button>
     </form>
   </body>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script type="text/javascript">
+    var limit = 4;
+    $('input.single-checkbox').on('change', function(evt) {
+      var numChecked = $('[name="trade_players"]:checked').length;
+       if(numChecked > limit) {
+           this.checked = false;
+       }
+    });
+  </script>
  </html>

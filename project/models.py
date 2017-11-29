@@ -2,8 +2,6 @@ from project import db
 
 class Team(db.Model):
     """ Team Model with all data about a team. """
-    __tablename__ = "team"
-
     id = db.Column(db.Integer, primary_key=True)
     game_name = db.Column(db.String)
     team_name = db.Column(db.String)
@@ -27,3 +25,18 @@ class Team(db.Model):
             rb2='%s', rb3='%s', starred_position='%s')>" \
                % (self.game_name, self.team_name, self.qb1, self.qb2, self.wr1, self.wr2, self.wr3, self.rb1, 
                 self.rb2, self.rb3, self.starred_position)
+
+class Game(db.Model):
+    """ Game Model to store available players. """
+    id = db.Column(db.Integer, primary_key=True)
+    game_name = db.Column(db.String)
+    available_qbs = db.Column(db.PickleType)
+    available_wrs = db.Column(db.PickleType)
+    available_rbs = db.Column(db.PickleType)
+
+    def __init__(self, game_name):
+        self.game_name = game_name
+
+    def __repr__(self):
+        return "<Team(game_name='%s', available_qbs='%s', available_wrs='%s', available_rbs='%s')>" \
+               % (self.game_name, self.available_qbs, self.available_wrs, self.available_rbs)
