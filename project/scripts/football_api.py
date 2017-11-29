@@ -25,17 +25,21 @@ def get_year_week():
 	return now.year, week_num
 
 
-def make_teams(teams):
+def make_teams(teams, game):
 	""" Randomly selects players for each team.
 	Keeps the starred player if there is one.
 
 	:param teams: The information about the teams.
+	:param game: The game object
 	"""
 	year,week_num = get_year_week()
 	players = get_players()
-	get_random_qbs(teams, players, week_num)
-	get_random_wrs(teams, players, week_num)
-	get_random_rbs(teams, players, week_num)
+	top_qb_stats = get_random_qbs(teams, players, week_num)
+	top_wr_stats = get_random_wrs(teams, players, week_num)
+	top_rb_stats = get_random_rbs(teams, players, week_num)
+	game.available_qbs = top_qb_stats
+	game.available_wrs = top_wr_stats
+	game.available_rbs = top_rb_stats
 
 def get_player_scores(team):
 	""" Get scores of all players for current week.
@@ -58,7 +62,7 @@ def update_live_player_score(player):
 	:return: Player object with updated live score
 	"""
 	year,week_num = get_year_week()
-	player_obj = nflgame.find(player[0])[0]
+	player_obj = nflgame.find(player[0])[0] # TODO: Change this to search for all players at once (faster)
 	player_stats = player_obj.stats(year,week=week_num)
 	player = [player[0], player[1], [week_num, get_player_score(player_stats)]]
 	return player
@@ -69,42 +73,47 @@ def get_player_score(player):
 	:param player: Player who's score is being queried
 	:return: Player's Fantasy Score
 	"""
-	return player.passing_yds*0.04 + (player.rushing_yds+player.receiving_yds)*0.01 \
+	return player.passing_yds*0.04 + (player.rushing_yds+player.receiving_yds)*0.1 \
 		+ player.passing_tds*4 + (player.rushing_tds+player.receiving_tds)*6 \
 		- (player.passing_int+player.fumbles_lost)*2
 
-def trade_in_players(trade_players):
+def trade_in_players(team, game, trade_players):
 	""" Randomly selects top players to replace the trade in players.
 
 	:param trade_players: The players to be traded in.
 	:return: new random players to replace the traded players
 	"""
 	players = get_players()
-	new_players = {}
 	for position in trade_players:
-		if position == "qb":
-			new_qbs = get_random_qbs(1, players)
-			if len(trade_players["qbs"]) == 1:
-				new_players["qb"] = new_qbs[0]
-			else:
-				new_players["qb"] = new_qbs
-		elif position == "wr":
-			new_wrs = get_random_wrs(1, players)
-			if len(trade_players["wrs"]) == 1:
-				new_players["wr"] = new_wrs[0]
-			elif len(trade_players["wrs"]) == 2:
-				new_players["wr"] = new_wrs[0:1]
-			else:
-				new_players["wr"] = new_wrs
-		elif position == "rb":
-			new_rbs = get_random_rbs(1, players)
-			if len(trade_players["rbs"]) == 1:
-				new_players["rb"] = new_rbs[0]
-			elif len(trade_players["rbs"]) == 2:
-				new_players["rb"] = new_rbs[0:1]
-			else:
-				new_players["rb"] = new_rbs
-	return new_players
+		if position == "qb1":
+			team.qb1, game.top_qb_stats = trade_in(game.top_qb_stats, team.qb1)
+		elif position == "qb2":
+			team.qb2, game.top_qb_stats = trade_in(game.top_qb_stats, team.qb2)
+		elif position == "wr1":
+			team.wr1, game.top_wr_stats = trade_in(game.top_wr_stats, team.wr1)
+		elif position == "wr2":
+			team.wr2, game.top_wr_stats = trade_in(game.top_wr_stats, team.wr2)
+		elif position == "wr3":
+			team.wr3, game.top_wr_stats = trade_in(game.top_wr_stats, team.wr3)
+		elif position == "rb1":
+			team.rb1, game.top_rb_stats = trade_in(game.top_rb_stats, team.rb1)
+		elif position == "rb2":
+			team.rb2, game.top_rb_stats = trade_in(game.top_rb_stats, team.rb2)
+		elif position == "rb3":
+			team.rb3, game.top_rb_stats = trade_in(game.top_rb_stats, team.rb3)
+
+def trade_in(top_player_stats, player):
+	""" Trade in an individual player with a new random player.
+
+	:param top_player_stats: Information about an available top player.
+	:param player: The current player who is being traded in.
+	:return: the new player, the updated stats
+	"""
+	new_player = random.choice(top_player_stats)
+	top_player_stats.append(player)
+	top_player_stats.remove(new_player)
+	new_player = update_live_player_score(new_player)
+	return new_player, top_player_stats
 
 def get_random_qbs(teams, players, week_num):
 	""" Randomly selects 1 top quarterbacks for each team.
@@ -126,6 +135,7 @@ def get_random_qbs(teams, players, week_num):
 			qb2 = random.choice(top_qb_stats)
 			team.qb2 = qb2
 			top_qb_stats.remove(qb2)
+	return top_qb_stats
 
 def get_random_wrs(teams, players, week_num):
 	""" Randomly selects 2 top wide receivers for each team.
@@ -151,6 +161,7 @@ def get_random_wrs(teams, players, week_num):
 			wr3 = random.choice(top_wr_stats)
 			team.wr3 = wr3
 			top_wr_stats.remove(wr3)
+	return top_wr_stats
 
 def get_random_rbs(teams, players, week_num):
 	""" Randomly selects 2 top running backs for each team.
@@ -176,6 +187,7 @@ def get_random_rbs(teams, players, week_num):
 			rb3 = random.choice(top_rb_stats)
 			team.rb3 = rb3
 			top_rb_stats.remove(rb3)
+	return top_rb_stats
 
 def get_games(week_num):
 	return nflgame._search_schedule(year=2017, week=week_num)
