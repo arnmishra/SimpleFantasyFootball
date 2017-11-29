@@ -88,9 +88,10 @@
   </body>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <script type="text/javascript">
-    var limit = 3;
+    var limit = 4;
     $('input.single-checkbox').on('change', function(evt) {
-       if($(this).siblings(':checked').length >= limit) {
+      var numChecked = $('[name="trade_players"]:checked').length;
+       if(numChecked > limit) {
            this.checked = false;
        }
     });
