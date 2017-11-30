@@ -27,6 +27,7 @@
   <h1> Week 13 Games</h1>
   {% for game in games %}
   <h3> {{game.home}} vs. {{game.away}} on {{game.wday}} at {{game.time}} {{game.meridiem}}</h3>
+  <a href={{game.gamecenter}}>Game Center</a>
   {% endfor %}
 </body>
 
