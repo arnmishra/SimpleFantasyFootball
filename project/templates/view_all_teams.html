@@ -1,28 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <title>Set Up Teams</title>
-  </head>
-  <body>
-    <h1> Game: {{ game_name }}</h1>
-    {% for team in teams %}
-      <h2>Team <a href="/team/{{ game_name }}/{{ team.team_name }}">{{ team.team_name }}</a>:</h2>
-        <h3> Quarterbacks </h3>
-          <p>{{ team.qb1[0] }}: Average Points = {{ team.qb1[1] }}</p>
-          <p>{{ team.qb2[0] }}: Average Points = {{ team.qb2[1] }}</p>
-        <h3> Receivers </h3>
-          <p>{{ team.wr1[0] }}: Average Points = {{ team.wr1[1] }}</p>
-          <p>{{ team.wr2[0] }}: Average Points = {{ team.wr2[1] }}</p>
-          <p>{{ team.wr3[0] }}: Average Points = {{ team.wr3[1] }}</p>
-        <h3> Running Backs </h3>
-          <p>{{ team.rb1[0] }}: Average Points = {{ team.rb1[1] }}</p>
-          <p>{{ team.rb2[0] }}: Average Points = {{ team.rb2[1] }}</p>
-          <p>{{ team.rb3[0] }}: Average Points = {{ team.rb3[1] }}</p>
-    {% endfor %}
-    <h1> Week 13 Games</h1>
-    {% for game in games %}
-    
-    {% endfor %}
-  </body>
- </html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Set Up Teams</title>
+</head>
+
+<body>
+  <h1> Game: {{ game_name }}</h1>
+  {% for team in teams %}
+  <h2>Team
+    <a href="/team/{{ game_name }}/{{ team.team_name }}">{{ team.team_name }}</a>:</h2>
+  <h3> Quarterbacks </h3>
+  <p>{{ team.qb1[0] }}: Average Points = {{ team.qb1[1] }}</p>
+  <p>{{ team.qb2[0] }}: Average Points = {{ team.qb2[1] }}</p>
+  <h3> Receivers </h3>
+  <p>{{ team.wr1[0] }}: Average Points = {{ team.wr1[1] }}</p>
+  <p>{{ team.wr2[0] }}: Average Points = {{ team.wr2[1] }}</p>
+  <p>{{ team.wr3[0] }}: Average Points = {{ team.wr3[1] }}</p>
+  <h3> Running Backs </h3>
+  <p>{{ team.rb1[0] }}: Average Points = {{ team.rb1[1] }}</p>
+  <p>{{ team.rb2[0] }}: Average Points = {{ team.rb2[1] }}</p>
+  <p>{{ team.rb3[0] }}: Average Points = {{ team.rb3[1] }}</p>
+  {% endfor %}
+
+  <h1> Week 13 Games</h1>
+  {% for game in games %}
+  <h3> {{game.home}} vs. {{game.away}} on {{game.wday}} at {{game.time}} {{game.meridiem}}</h3>
+  {% endfor %}
+</body>
+
+</html>

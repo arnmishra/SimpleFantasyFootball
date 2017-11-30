@@ -59,6 +59,7 @@ def view_all_teams():
         Return all this week's games
     """
     games = get_games(13)
+    print games
     return render_template("view_all_teams.html", game_name=game_name, teams=teams, games=games)
 
 @app.route("/team/<game_name>/<team_name>", methods=['GET', 'POST'])
