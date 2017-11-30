@@ -2,43 +2,67 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <title>Set Up Teams</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-    crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title>Simple Fantasy Football</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/css?family=Nunito:400,700" rel="stylesheet">
+    <style>
+        html,
+        body {
+            margin: 0;
 
+            font-family: 'Nunito', sans-serif;
+        }
 
+        a {
+            color: #9B2743
+        }
+
+        body {
+            background: url("https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Broncos_vs_49ers_preseason_game_at_Levi%27s_Stadium.jpg/1200px-Broncos_vs_49ers_preseason_game_at_Levi%27s_Stadium.jpg") no-repeat center center fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+        }
+    </style>
 </head>
 
-<body class="container">
-  <div class="row">
-    <div class="col-xs-8">
-      <h1> Game: {{ game_name }}</h1>
-      {% for team in teams %}
-      <h2>Team
-        <a href="/team/{{ game_name }}/{{ team.team_name }}">{{ team.team_name }}</a>:</h2>
-      <h3> Quarterbacks </h3>
-      <p>{{ team.qb1[0] }}: Average Points = {{ team.qb1[1] }}</p>
-      <p>{{ team.qb2[0] }}: Average Points = {{ team.qb2[1] }}</p>
-      <h3> Receivers </h3>
-      <p>{{ team.wr1[0] }}: Average Points = {{ team.wr1[1] }}</p>
-      <p>{{ team.wr2[0] }}: Average Points = {{ team.wr2[1] }}</p>
-      <p>{{ team.wr3[0] }}: Average Points = {{ team.wr3[1] }}</p>
-      <h3> Running Backs </h3>
-      <p>{{ team.rb1[0] }}: Average Points = {{ team.rb1[1] }}</p>
-      <p>{{ team.rb2[0] }}: Average Points = {{ team.rb2[1] }}</p>
-      <p>{{ team.rb3[0] }}: Average Points = {{ team.rb3[1] }}</p>
-      {% endfor %}
-
+<body class="container" style="display: flex; align-items: center; justify-content: center">
+    <div class="row" style="background-color: rgba(255,255,255,0.95); padding: 2% 10%; width: 100%;">
+        <div style="background-color: #9B2743; color: white; width: 100%; padding: 2%">
+            <h4 style="text-align: center">League</h4>
+            <h1 style="text-align: center; font-weight: bold">{{ game_name }}</h1>
+        </div>
+        <div class="col-xs-8" style="text-align: center">
+            {% for team in teams %}
+            <h2 style="font-weight: bold">
+                <a href="/team/{{ game_name }}/{{ team.team_name }}">Team {{ team.team_name }}</a>
+            </h2>
+            <h3> Quarterbacks </h3>
+            <p>{{ team.qb1[0] }} Average Points = {{ team.qb1[1] }}</p>
+            <p>{{ team.qb2[0] }}: Average Points = {{ team.qb2[1] }}</p>
+            <h3> Receivers </h3>
+            <p>{{ team.wr1[0] }}: Average Points = {{ team.wr1[1] }}</p>
+            <p>{{ team.wr2[0] }}: Average Points = {{ team.wr2[1] }}</p>
+            <p>{{ team.wr3[0] }}: Average Points = {{ team.wr3[1] }}</p>
+            <h3> Running Backs </h3>
+            <p>{{ team.rb1[0] }}: Average Points = {{ team.rb1[1] }}</p>
+            <p>{{ team.rb2[0] }}: Average Points = {{ team.rb2[1] }}</p>
+            <p>{{ team.rb3[0] }}: Average Points = {{ team.rb3[1] }}</p>
+            {% endfor %}
+        </div>
+        <div class="col-xs-4">
+            <h3 style="font-weight: bold"> Week 13 Games</h3>
+            {% for game in games %}
+            <div style="padding: 2% 0">
+                <div> {{game.home}} at {{game.away}} on {{game.wday}} at {{game.time}} {{game.meridiem}} EST</div>
+                <a href={{game.gamecenter}}>Game Center</a>
+            </div>
+            {% endfor %}
+        </div>
     </div>
-    <div class="col-xs-4">
-      <h1> Week 13 Games</h1>
-      {% for game in games %}
-      <p> {{game.home}} vs. {{game.away}} on {{game.wday}} at {{game.time}} {{game.meridiem}} <a href={{game.gamecenter}}>Game Center</a></p>
-      
-      {% endfor %}
-    </div>
-  </div>
 </body>
 
 </html>
