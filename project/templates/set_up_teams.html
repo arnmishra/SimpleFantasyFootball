@@ -27,7 +27,7 @@
    <div class="row" style="background-color: rgba(255,255,255,0.9); padding: 10%;">
     <form action="/view_all_teams" method="POST">
       <h1 style="text-align: center">Name your league</h2>
-      <input class="form-control" type="text" name="game_name" placeholder="Name your league" required><br>
+      <input class="form-control" type="text" name="league_name" placeholder="Name your league" required><br>
       {% for i in range(num_teams) %}
         <h3>Team {{ i+1 }} Name: </h3><input class="form-control" type="text" name="team_names" required> <br>
       {% endfor %}

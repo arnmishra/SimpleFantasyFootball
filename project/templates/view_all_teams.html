@@ -13,10 +13,10 @@
 <body class="container">
   <div class="row">
     <div class="col-xs-8">
-      <h1> Game: {{ game_name }}</h1>
+      <h1> League: {{ league_name }}</h1>
       {% for team in teams %}
       <h2>Team
-        <a href="/team/{{ game_name }}/{{ team.team_name }}">{{ team.team_name }}</a>:</h2>
+        <a href="/team/{{ league_name }}/{{ team.team_name }}">{{ team.team_name }}</a>:</h2>
       <h3> Quarterbacks </h3>
       <p>{{ team.qb1[0] }}: Average Points = {{ team.qb1[1] }}</p>
       <p>{{ team.qb2[0] }}: Average Points = {{ team.qb2[1] }}</p>

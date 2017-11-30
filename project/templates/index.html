@@ -31,14 +31,17 @@
 			you in the right direction. Trade-in up to three players in a single week and keep your favorite player for each week
 			for the next week! Think of Draft Kings, but you're not broke at the end of it all.
 		</p>
-		<h3>New? Start Your Game Here</h3>
-		<form action="/set_up_teams" method="POST" >
+		<h3>New? Start Your League Here</h3>
+		<form action="/set_up_teams" method="POST">
 			Number of Teams:
 			<input class="form-control" type="number" min="2" max="4" name="num_teams" required style="display: block">
 			<button class="btn btn-default" style="margin-top: 1%;">Submit Team Number</button>
 		</form>
-		<h3>View Current Game</h3>
-		<input class="form-control" placeholder="Enter your game name here" />
+		<h3>View Existing League</h3>
+		<form action="/view_all_teams" method="POST">
+			<input class="form-control" name="league_name" placeholder="Enter your league name here" />
+			<button class="btn btn-default" style="margin-top: 1%;">Load League</button>
+		</form>
 	</div>
 </body>
 
