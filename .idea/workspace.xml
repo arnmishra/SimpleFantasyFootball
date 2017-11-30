@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f6b8a566-7477-4e0d-997a-2c4978ebc6b2" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/project/templates/index.html" afterPath="$PROJECT_DIR$/project/templates/index.html" />
-      <change beforePath="$PROJECT_DIR$/project/templates/set_up_new_game.html" afterPath="$PROJECT_DIR$/project/templates/set_up_new_game.html" />
-    </list>
+    <list default="true" id="f6b8a566-7477-4e0d-997a-2c4978ebc6b2" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -152,7 +149,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="1920" height="1178" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18229167" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />

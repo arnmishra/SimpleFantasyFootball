@@ -1,16 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <title>Set Up Teams</title>
-  </head>
-  <body>
-	  <form action="/view_all_teams" method="POST"> 
-      Game Name: <input type="text" name="game_name" required><br>
+ <!DOCTYPE html>
+ <html lang="en">
+ 
+ <head>
+   <meta charset="UTF-8">
+   <title>Simple Fantasy Football</title>
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+     crossorigin="anonymous">
+   <style>
+     html,
+     body {
+       margin: 0;
+       height: 100%;
+     }
+ 
+     body {
+       background: url("https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Broncos_vs_49ers_preseason_game_at_Levi%27s_Stadium.jpg/1200px-Broncos_vs_49ers_preseason_game_at_Levi%27s_Stadium.jpg") no-repeat center center fixed;
+       -webkit-background-size: cover;
+       -moz-background-size: cover;
+       -o-background-size: cover;
+       background-size: cover;
+     }
+   </style>
+ </head>
+ 
+ <body class="container" style="display: flex;align-items: center; justify-content: center">
+   <div class="row" style="background-color: rgba(255,255,255,0.9); padding: 10%;">
+    <form action="/view_all_teams" method="POST">
+      <h1 style="text-align: center">Name your league</h2>
+      <input class="form-control" type="text" name="game_name" placeholder="Name your league" required><br>
       {% for i in range(num_teams) %}
-        Team {{ i+1 }} Name: <input type="text" name="team_names" required> <br>
+        <h3>Team {{ i+1 }} Name: </h3><input class="form-control" type="text" name="team_names" required> <br>
       {% endfor %}
-      <button>Submit Team Names</button>
+      <button class="btn btn-default">Submit Team Names</button>
 	  </form>
-  </body>
+   </div>
+ </body>
+ 
  </html>
