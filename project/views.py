@@ -79,4 +79,4 @@ def view_team(game_name, team_name):
     if request.method == 'GET':
         get_player_scores(team)
     db.session.commit()
-    return render_template("view_team.html", team=team, game_name = game_name)
+    return render_template("view_team.html", team=team, game_name=game_name)
