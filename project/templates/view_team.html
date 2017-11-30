@@ -5,9 +5,9 @@
     <title>Set Up Teams</title>
   </head>
   <body>
-    <h1> Game: {{ game_name }}</h1>
+    <h1> League: {{ league_name }}</h1>
     <h2>Team {{ team.team_name }}:</h2>
-    <form action="/team/{{ game_name }}/{{ team.team_name }}" method="POST">
+    <form action="/team/{{ league_name }}/{{ team.team_name }}" method="POST">
       <h3> Quarterbacks </h3>
       <p>
         {% if team.starred_position == "qb1" %}

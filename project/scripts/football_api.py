@@ -63,7 +63,6 @@ def update_live_player_score(player):
     :return: Player object with updated live score
     """
     year, week_num = get_year_week()
-    # TODO: Change this to search for all players at once (faster)
     player_obj = nflgame.find(player[0])[0]
     player_stats = player_obj.stats(year, week=week_num)
     player = [player[0], player[1], [week_num, get_player_score(player_stats)]]
@@ -228,11 +227,11 @@ def get_random_rbs(teams, players, week_num):
 
 def get_games(week_num):
     data = json.load(open('./project/scripts/schedule.json'))
-    currWeekGames = []
+    curr_week_games = []
     for g in range(len(data['games'])):
 		if data['games'][g][1]['week'] == week_num and data['games'][g][1]['year'] == 2017:
-			currWeekGames.append(data['games'][g][1])
-    return currWeekGames
+			curr_week_games.append(data['games'][g][1])
+    return curr_week_games
 
     # teams = make_teams(5)
     # i = 1
