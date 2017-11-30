@@ -62,7 +62,7 @@ def view_all_teams(league_name):
     if new_league:
         make_teams(teams, league)
     else:
-        teams = Team.query.filter_by(league_name=league_name)
+        teams = Team.query.filter_by(league_name=league_name).all()
     db.session.commit()
 
     """
@@ -89,3 +89,12 @@ def view_team(league_name, team_name):
         get_player_scores(team)
     db.session.commit()
     return render_template("view_team.html", team=team, league_name=league_name)
+
+@app.route("/view_existing_league", methods=['POST'])
+def view_existing_league():
+    """ Redirects to an existing page with league info
+
+    :return: view_all_teams.html
+    """
+    league_name = request.form["league_name"]
+    return redirect("/view_all_teams/" + league_name)
