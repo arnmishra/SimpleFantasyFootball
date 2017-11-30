@@ -4,19 +4,36 @@
     <meta charset="UTF-8">
     <title>Simple Fantasy Football</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+      <style>
+          html, body {
+            margin: 0;
+            height: 100%;
+          }
+
+          body {
+              background: url("https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Broncos_vs_49ers_preseason_game_at_Levi%27s_Stadium.jpg/1200px-Broncos_vs_49ers_preseason_game_at_Levi%27s_Stadium.jpg") no-repeat center center fixed;
+              -webkit-background-size: cover;
+              -moz-background-size: cover;
+              -o-background-size: cover;
+              background-size: cover;
+            }
+      </style>
   </head>
-  <body class="container">
-      <div class="row">
+  <body class="container" style="display: flex;align-items: center; justify-content: center" >
+        <div class="row" style="background-color: rgba(255,255,255,0.9); padding: 10%;">
           <h1>Welcome to Simple Fantasy Football</h1>
           <p>
               Instead of making a season-long commitment and actually having to pick players, just let us pick the teams
               for you and point you in the right direction. Trade-in up to three players in a single week and keep your favorite player for each week for the next week!
+              Think of Draft Kings, but you're not broke at the end of it all.
           </p>
           <h3>New? Start Your Game Here</h3>
           <a class="btn btn-default" href="/set_up_new_game">Set Up New Game</a>
           <h3>View Current Game</h3>
           <input class="form-control" placeholder="Enter your game name here" />
-      </div>
+        </div>
+
+
 
   </body>
  </html>
