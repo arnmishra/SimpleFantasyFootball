@@ -28,12 +28,12 @@
               Think of Draft Kings, but you're not broke at the end of it all.
           </p>
           <h3>New? Start Your Game Here</h3>
-          <a class="btn btn-default" href="/set_up_new_game">Set Up New Game</a>
+           <form action="/set_up_teams" method="POST">
+	    Number of Teams: <input type="number" min="2" max="4" name="num_teams" required> <br>
+	    <button>Submit Team Number</button>
+	  </form>
           <h3>View Current Game</h3>
           <input class="form-control" placeholder="Enter your game name here" />
         </div>
-
-
-
   </body>
  </html>
