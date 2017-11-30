@@ -4,31 +4,41 @@
 <head>
   <meta charset="UTF-8">
   <title>Set Up Teams</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+    crossorigin="anonymous">
+
+
 </head>
 
-<body>
-  <h1> Game: {{ game_name }}</h1>
-  {% for team in teams %}
-  <h2>Team
-    <a href="/team/{{ game_name }}/{{ team.team_name }}">{{ team.team_name }}</a>:</h2>
-  <h3> Quarterbacks </h3>
-  <p>{{ team.qb1[0] }}: Average Points = {{ team.qb1[1] }}</p>
-  <p>{{ team.qb2[0] }}: Average Points = {{ team.qb2[1] }}</p>
-  <h3> Receivers </h3>
-  <p>{{ team.wr1[0] }}: Average Points = {{ team.wr1[1] }}</p>
-  <p>{{ team.wr2[0] }}: Average Points = {{ team.wr2[1] }}</p>
-  <p>{{ team.wr3[0] }}: Average Points = {{ team.wr3[1] }}</p>
-  <h3> Running Backs </h3>
-  <p>{{ team.rb1[0] }}: Average Points = {{ team.rb1[1] }}</p>
-  <p>{{ team.rb2[0] }}: Average Points = {{ team.rb2[1] }}</p>
-  <p>{{ team.rb3[0] }}: Average Points = {{ team.rb3[1] }}</p>
-  {% endfor %}
+<body class="container">
+  <div class="row">
+    <div class="col-xs-8">
+      <h1> Game: {{ game_name }}</h1>
+      {% for team in teams %}
+      <h2>Team
+        <a href="/team/{{ game_name }}/{{ team.team_name }}">{{ team.team_name }}</a>:</h2>
+      <h3> Quarterbacks </h3>
+      <p>{{ team.qb1[0] }}: Average Points = {{ team.qb1[1] }}</p>
+      <p>{{ team.qb2[0] }}: Average Points = {{ team.qb2[1] }}</p>
+      <h3> Receivers </h3>
+      <p>{{ team.wr1[0] }}: Average Points = {{ team.wr1[1] }}</p>
+      <p>{{ team.wr2[0] }}: Average Points = {{ team.wr2[1] }}</p>
+      <p>{{ team.wr3[0] }}: Average Points = {{ team.wr3[1] }}</p>
+      <h3> Running Backs </h3>
+      <p>{{ team.rb1[0] }}: Average Points = {{ team.rb1[1] }}</p>
+      <p>{{ team.rb2[0] }}: Average Points = {{ team.rb2[1] }}</p>
+      <p>{{ team.rb3[0] }}: Average Points = {{ team.rb3[1] }}</p>
+      {% endfor %}
 
-  <h1> Week 13 Games</h1>
-  {% for game in games %}
-  <h3> {{game.home}} vs. {{game.away}} on {{game.wday}} at {{game.time}} {{game.meridiem}}</h3>
-  <a href={{game.gamecenter}}>Game Center</a>
-  {% endfor %}
+    </div>
+    <div class="col-xs-4">
+      <h1> Week 13 Games</h1>
+      {% for game in games %}
+      <p> {{game.home}} vs. {{game.away}} on {{game.wday}} at {{game.time}} {{game.meridiem}} <a href={{game.gamecenter}}>Game Center</a></p>
+      
+      {% endfor %}
+    </div>
+  </div>
 </body>
 
 </html>
