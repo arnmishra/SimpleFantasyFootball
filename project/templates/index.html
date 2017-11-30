@@ -43,9 +43,27 @@
             <input class="form-control" type="number" min="2" max="4" name="num_teams" required style="display: block">
             <button class="btn btn-default" style="margin-top: 1%;">Submit Team Number</button>
         </form>
-        <h3>View Current Game</h3>
-        <input class="form-control" placeholder="Enter your game name here" />
+        <h3>View Existing League</h3>
+        <form action="/view_existing_league" method="POST">
+			<input class="form-control" id="league_name" name="league_name" placeholder="Enter your league name here" />
+			<button class="btn btn-default" id="load_league" style="margin-top: 1%;">Load League</button>
+		</form>
     </div>
 </body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+// <script>
+// 	$("#load_league").click(function() {
+// 		var league_name = $("#league_name").val();
+// 		$.ajax({
+//             url: "/view_existing_league"
+//             type: "POST",
+//             data: { league_name: league_name },
+//             success: function(resp){
+//             	document.write(resp); 
+//             }
+//         });
+// 	});
+// </script>
 
 </html>
