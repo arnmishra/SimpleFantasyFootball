@@ -40,25 +40,38 @@ def make_teams(teams, game):
     game.available_wrs = top_wr_stats
     game.available_rbs = top_rb_stats
 
+def get_high_scores(teams):
+    """ Return an ordered list of high scores for each team.
+
+    :param teams: The information abou the teams.
+    :return: A list of team names and scores.
+    """
+    for team in teams:
+        get_player_scores(team)
+    high_scores = []
+    for team in teams:
+        high_scores.append([team.team_name, team.this_week_score])
+    high_scores.sort()
+    return high_scores
 
 def get_player_scores(team):
     """ Get scores of all players for current week.
 
     :param team: Team who's players' scores are being queried
     """
-    team.qb1 = update_live_player_score(team.qb1)
-    team.qb2 = update_live_player_score(team.qb2)
-    team.wr1 = update_live_player_score(team.wr1)
-    team.wr2 = update_live_player_score(team.wr2)
-    team.wr3 = update_live_player_score(team.wr3)
-    team.rb1 = update_live_player_score(team.rb1)
-    team.rb2 = update_live_player_score(team.rb2)
-    team.rb3 = update_live_player_score(team.rb3)
+    team.qb1 = update_live_player_score(team, team.qb1)
+    team.qb2 = update_live_player_score(team, team.qb2)
+    team.wr1 = update_live_player_score(team, team.wr1)
+    team.wr2 = update_live_player_score(team, team.wr2)
+    team.wr3 = update_live_player_score(team, team.wr3)
+    team.rb1 = update_live_player_score(team, team.rb1)
+    team.rb2 = update_live_player_score(team, team.rb2)
+    team.rb3 = update_live_player_score(team, team.rb3)
 
 
-def update_live_player_score(player):
+def update_live_player_score(team, player):
     """ Get Live Player Score for current week
-
+    :param team: Team who's players' scores are being queried
     :param player: Player who's score is being queried
     :return: Player object with updated live score
     """
@@ -66,6 +79,7 @@ def update_live_player_score(player):
     player_obj = nflgame.find(player[0])[0]
     player_stats = player_obj.stats(year, week=week_num)
     player = [player[0], player[1], [week_num, get_player_score(player_stats)]]
+    team.this_week_score += player[2][1]
     return player
 
 

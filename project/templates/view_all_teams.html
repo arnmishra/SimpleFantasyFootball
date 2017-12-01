@@ -42,7 +42,7 @@
                 <a href="/team/{{ league_name }}/{{ team.team_name }}">Team {{ team.team_name }}</a>
             </h2>
             <h3> Quarterbacks </h3>
-            <p>{{ team.qb1[0] }} Average Points = {{ team.qb1[1] }}</p>
+            <p>{{ team.qb1[0] }}: Average Points = {{ team.qb1[1] }}</p>
             <p>{{ team.qb2[0] }}: Average Points = {{ team.qb2[1] }}</p>
             <h3> Receivers </h3>
             <p>{{ team.wr1[0] }}: Average Points = {{ team.wr1[1] }}</p>
@@ -58,13 +58,18 @@
             <h3 style="font-weight: bold"> Week 13 Games</h3>
             {% for game in games %}
             <div style="padding: 2% 0">
-                <div> {{game.home}} at {{game.away}} on {{game.wday}} at {{game.time}} {{game.meridiem}} EST</div>
+                <div> {{game.home}} @ {{game.away}} on {{game.wday}} at {{game.time}} {{game.meridiem}} EST</div>
                 <a href={{game.gamecenter}}>Game Center</a>
             </div>
             {% endfor %}
         </div>
         <div class="col-xs-3" style="text-align: center">
             <h3 style="font-weight: bold"> Week 13 Leaderboard</h3>
+            {% for high_score in high_scores %}
+            <div style="padding: 2% 0">
+                <div> {{high_score[0]}}: {{high_score[1]}} pts </div>
+            </div>
+            {% endfor %}
         </div>
     </div>
 </body>

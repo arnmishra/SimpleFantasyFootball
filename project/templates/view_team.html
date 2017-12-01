@@ -38,7 +38,7 @@
                 Trade In: {{ team.qb1[0]}}: Average Points = {{ team.qb1[1] }}; Week {{ team.qb1[2][0] }} Score = {{ team.qb1[2][1]}}
                 <div>
                     <label>
-                        <input type="radio" name="star" value="qb1">{% if team.starred_position == "qb1" %} Starred: {% else %} Star {% endif %}</label>
+                        {% if team.starred_position != "qb1" %} <input type="radio" name="star" value="qb1"> Star: {% else %} Starred {% endif %}</label>
                     <label>
                         <input class="single-checkbox" type="checkbox" name="trade_players" value="qb1"> Trade In</label>
                 </div>
@@ -47,7 +47,7 @@
                 Trade In: {{ team.qb2[0]}}: Average Points = {{ team.qb2[1] }}; Week {{ team.qb2[2][0] }} Score = {{ team.qb2[2][1]}}
                 <div>
                     <label>
-                        <input type="radio" name="star" value="qb2">{% if team.starred_position == "qb2" %} Starred: {% else %} Star {% endif %}</label>
+                        {% if team.starred_position != "qb2" %}<input type="radio" name="star" value="qb2"> Star: {% else %} Starred {% endif %}</label>
                     <label>
                         <input class="single-checkbox" type="checkbox" name="trade_players" value="qb2"> Trade In</label>
                 </div>
@@ -57,7 +57,7 @@
                 Trade In: {{ team.wr1[0]}}: Average Points = {{ team.wr1[1] }}; Week {{ team.wr1[2][0] }} Score = {{ team.wr1[2][1]}}
                 <div>
                     <label>
-                        <input type="radio" name="star" value="wr1">{% if team.starred_position == "wr1" %} Starred: {% else %} Star {% endif %}</label>
+                        {% if team.starred_position != "wr1" %}<input type="radio" name="star" value="wr1"> Star: {% else %} Starred {% endif %}</label>
                     <label>
                         <input class="single-checkbox" type="checkbox" name="trade_players" value="wr1"> Trade In</label>
                 </div>
@@ -66,7 +66,7 @@
                 Trade In: {{ team.wr2[0]}}: Average Points = {{ team.wr2[1] }}; Week {{ team.wr2[2][0] }} Score = {{ team.wr2[2][1]}}
                 <div>
                     <label>
-                        <input type="radio" name="star" value="wr2">{% if team.starred_position == "wr2" %} Starred: {% else %} Star {% endif %}</label>
+                        {% if team.starred_position != "wr2" %}<input type="radio" name="star" value="wr2"> Star: {% else %} Starred {% endif %}</label>
                     <label>
                         <input class="single-checkbox" type="checkbox" name="trade_players" value="wr2"> Trade In</label>
                 </div>
@@ -75,7 +75,7 @@
                 Trade In: {{ team.wr3[0]}}: Average Points = {{ team.wr3[1] }}; Week {{ team.wr3[2][0] }} Score = {{ team.wr3[2][1]}}
                 <div>
                     <label>
-                        <input type="radio" name="star" value="wr3">{% if team.starred_position == "wr3" %} Starred: {% else %} Star {% endif %}</label>
+                        {% if team.starred_position != "wr3" %}<input type="radio" name="star" value="wr3"> Star: {% else %} Starred {% endif %}</label>
                     <label>
                         <input class="single-checkbox" type="checkbox" name="trade_players" value="wr3"> Trade In</label>
                 </div>
@@ -85,7 +85,7 @@
                 Trade In: {{ team.rb1[0]}}: Average Points = {{ team.rb1[1] }}; Week {{ team.rb1[2][0] }} Score = {{ team.rb1[2][1]}}
                 <div>
                     <label>
-                        <input type="radio" name="star" value="rb1">{% if team.starred_position == "rb1" %} Starred: {% else %} Star {% endif %}</label>
+                        {% if team.starred_position != "rb1" %}<input type="radio" name="star" value="rb1"> Star: {% else %} Starred {% endif %}</label>
                     <label>
                         <input class="single-checkbox" type="checkbox" name="trade_players" value="rb1"> Trade In</label>
                 </div>
@@ -94,7 +94,7 @@
                 Trade In: {{ team.rb2[0]}}: Average Points = {{ team.rb2[1] }}; Week {{ team.rb2[2][0] }} Score = {{ team.rb2[2][1]}}
                 <div>
                     <label>
-                        <input type="radio" name="star" value="rb2">{% if team.starred_position == "rb2" %} Starred: {% else %} Star {% endif %}</label>
+                        {% if team.starred_position != "rb2" %}<input type="radio" name="star" value="rb2"> Star: {% else %} Starred {% endif %}</label>
                     <label>
                         <input class="single-checkbox" type="checkbox" name="trade_players" value="rb2"> Trade In</label>
                 </div>
@@ -103,7 +103,7 @@
                 Trade In: {{ team.rb3[0]}}: Average Points = {{ team.rb3[1] }}; Week {{ team.rb3[2][0] }} Score = {{ team.rb3[2][1]}}
                 <div>
                     <label>
-                        <input type="radio" name="star" value="rb3">{% if team.starred_position == "rb3" %} Starred: {% else %} Star {% endif %}</label>
+                        {% if team.starred_position != "rb3" %}<input type="radio" name="star" value="rb3"> Star: {% else %} Starred {% endif %}</label>
                     <label>
                         <input class="single-checkbox" type="checkbox" name="trade_players" value="rb3"> Trade In</label>
                 </div>
