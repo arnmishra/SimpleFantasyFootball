@@ -10,3 +10,4 @@ itsdangerous==0.24
 Jinja2==2.10
 nflgame==1.2.20
 SQLAlchemy==1.1.15
+gunicorn==19.0.0
