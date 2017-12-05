@@ -21,7 +21,7 @@ def get_players():
 def get_year_week():
     """ Get current NFL Year and Week """
     now = datetime.datetime.now()
-    return now.year, 13
+    return now.year, 14
 
 
 def make_teams(teams, game):
