@@ -68,7 +68,7 @@ def view_all_teams(league_name):
     """
         Return all this week's games
     """
-    games = get_games(13)
+    games = get_games(14)
     high_scores = get_high_scores(teams)
     return render_template("view_all_teams.html", league_name=league_name, teams=teams, games=games, high_scores=high_scores)
 
