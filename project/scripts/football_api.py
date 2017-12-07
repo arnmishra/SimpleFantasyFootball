@@ -3,7 +3,6 @@ import datetime
 import math
 import nflgame
 import random
-from threading import Thread
 import json
 
 
