@@ -44,45 +44,48 @@ def make_teams(teams, game):
     game.available_wrs = top_wr_stats
     game.available_rbs = top_rb_stats
 
-def get_high_scores(teams):
+def get_high_scores(teams, expected_week_num):
     """ Return an ordered list of high scores for each team.
 
     :param teams: The information abou the teams.
     :return: A list of team names and scores.
     """
     for team in teams:
-        get_player_scores(team)
+        get_player_scores(team, expected_week_num)
     high_scores = []
     for team in teams:
         high_scores.append([team.team_name, team.this_week_score])
     high_scores.sort()
     return high_scores
 
-def get_player_scores(team):
+def get_player_scores(team, expected_week_num):
     """ Get scores of all players for current week.
 
     :param team: Team who's players' scores are being queried
-    """
-    team.qb1 = update_live_player_score(team, team.qb1)
-    team.qb2 = update_live_player_score(team, team.qb2)
-    team.wr1 = update_live_player_score(team, team.wr1)
-    team.wr2 = update_live_player_score(team, team.wr2)
-    team.wr3 = update_live_player_score(team, team.wr3)
-    team.rb1 = update_live_player_score(team, team.rb1)
-    team.rb2 = update_live_player_score(team, team.rb2)
-    team.rb3 = update_live_player_score(team, team.rb3)
+    """    
+    team.qb1 = update_live_player_score(team, team.qb1, expected_week_num)
+    team.qb2 = update_live_player_score(team, team.qb2, expected_week_num)
+    team.wr1 = update_live_player_score(team, team.wr1, expected_week_num)
+    team.wr2 = update_live_player_score(team, team.wr2, expected_week_num)
+    team.wr3 = update_live_player_score(team, team.wr3, expected_week_num)
+    team.rb1 = update_live_player_score(team, team.rb1, expected_week_num)
+    team.rb2 = update_live_player_score(team, team.rb2, expected_week_num)
+    team.rb3 = update_live_player_score(team, team.rb3, expected_week_num)
 
 
-def update_live_player_score(team, player):
+def update_live_player_score(team, player, expected_week_num):
     """ Get Live Player Score for current week
     :param team: Team who's players' scores are being queried
     :param player: Player who's score is being queried
     :return: Player object with updated live score
     """
     year, week_num = get_year_week()
-    player_obj = nflgame.find(player[0])[0]
-    player_stats = player_obj.stats(year, week=week_num)
-    player = [player[0], player[1], [week_num, get_player_score(player_stats)]]
+    player_score = 0
+    if week_num == expected_week_num-1:
+        player_obj = nflgame.find(player[0])[0]
+        player_stats = player_obj.stats(year, week=week_num)
+        player_score = get_player_score(player_stats)
+    player = [player[0], player[1], [week_num, player_score]]
     team.this_week_score += player[2][1]
     return player
 
@@ -95,7 +98,7 @@ def get_player_score(player):
     """
     return player.passing_yds * 0.04 + (player.rushing_yds + player.receiving_yds) * 0.1 \
         + player.passing_tds * 4 + (player.rushing_tds + player.receiving_tds) * 6 \
-        - (player.passing_int + player.fumbles_lost) * 2
+        - (player.passing_ints + player.fumbles_lost) * 2
 
 
 def trade_in_players(team, game, trade_players):

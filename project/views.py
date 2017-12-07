@@ -4,6 +4,8 @@ from models import Team, League
 from flask import render_template, url_for, request, redirect
 from project.scripts.football_api import make_teams, trade_in_players, get_games, get_player_scores, get_high_scores
 
+WEEK_NUMBER = 14
+
 @app.route("/", methods=['GET'])
 def index():
     """ Renders the home page
@@ -68,9 +70,9 @@ def view_all_teams(league_name):
     """
         Return all this week's games
     """
-    games = get_games(14)
-    high_scores = get_high_scores(teams)
-    return render_template("view_all_teams.html", league_name=league_name, teams=teams, games=games, high_scores=high_scores)
+    games = get_games(WEEK_NUMBER)
+    high_scores = get_high_scores(teams, WEEK_NUMBER)
+    return render_template("view_all_teams.html", week_num=WEEK_NUMBER, league_name=league_name, teams=teams, games=games, high_scores=high_scores)
 
 @app.route("/team/<league_name>/<team_name>", methods=['GET', 'POST'])
 def view_team(league_name, team_name):
@@ -87,7 +89,7 @@ def view_team(league_name, team_name):
             trade_players = request.form.getlist("trade_players")
             trade_in_players(team, league, trade_players)
     if request.method == 'GET':
-        get_player_scores(team)
+        get_player_scores(team, WEEK_NUMBER)
     db.session.commit()
     return render_template("view_team.html", team=team, league_name=league_name)
 
