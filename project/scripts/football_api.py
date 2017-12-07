@@ -100,7 +100,7 @@ def get_player_score(player):
         - (player.passing_ints + player.fumbles_lost) * 2
 
 
-def trade_in_players(team, game, trade_players):
+def trade_in_players(team, game, trade_players, expected_week_num):
     """ Randomly selects top players to replace the trade in players.
 
     :param trade_players: The players to be traded in.
@@ -110,31 +110,31 @@ def trade_in_players(team, game, trade_players):
     for position in trade_players:
         if position == "qb1":
             team.qb1, game.available_qbs = trade_in(
-                game.available_qbs, team.qb1)
+                game.available_qbs, team.qb1, team, expected_week_num)
         elif position == "qb2":
             team.qb2, game.available_qbs = trade_in(
-                game.available_qbs, team.qb2)
+                game.available_qbs, team.qb2, team, expected_week_num)
         elif position == "wr1":
             team.wr1, game.available_wrs = trade_in(
-                game.available_wrs, team.wr1)
+                game.available_wrs, team.wr1, team, expected_week_num)
         elif position == "wr2":
             team.wr2, game.available_wrs = trade_in(
-                game.available_wrs, team.wr2)
+                game.available_wrs, team.wr2, team, expected_week_num)
         elif position == "wr3":
             team.wr3, game.available_wrs = trade_in(
-                game.available_wrs, team.wr3)
+                game.available_wrs, team.wr3, team, expected_week_num)
         elif position == "rb1":
             team.rb1, game.available_rbs = trade_in(
-                game.available_rbs, team.rb1)
+                game.available_rbs, team.rb1, team, expected_week_num)
         elif position == "rb2":
             team.rb2, game.available_rbs = trade_in(
-                game.available_rbs, team.rb2)
+                game.available_rbs, team.rb2, team, expected_week_num)
         elif position == "rb3":
             team.rb3, game.available_rbs = trade_in(
-                game.available_rbs, team.rb3)
+                game.available_rbs, team.rb3, team, expected_week_num)
 
 
-def trade_in(top_player_stats, player):
+def trade_in(top_player_stats, player, team, expected_week_num):
     """ Trade in an individual player with a new random player.
 
     :param top_player_stats: Information about an available top player.
@@ -144,7 +144,7 @@ def trade_in(top_player_stats, player):
     new_player = random.choice(top_player_stats)
     top_player_stats.append(player)
     top_player_stats.remove(new_player)
-    new_player = update_live_player_score(new_player)
+    new_player = update_live_player_score(team, new_player, expected_week_num)
     return new_player, top_player_stats
 
 

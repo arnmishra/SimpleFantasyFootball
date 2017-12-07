@@ -83,11 +83,12 @@ def view_team(league_name, team_name):
     team = Team.query.filter_by(league_name=league_name, team_name=team_name).first()
     league = League.query.filter_by(league_name=league_name).first()
     if request.method == 'POST':
+        print request.form
         if "star" in request.form:
             team.starred_position = request.form["star"]
         if "trade_players" in request.form:
             trade_players = request.form.getlist("trade_players")
-            trade_in_players(team, league, trade_players)
+            trade_in_players(team, league, trade_players, WEEK_NUMBER)
     if request.method == 'GET':
         get_player_scores(team, WEEK_NUMBER)
     db.session.commit()
