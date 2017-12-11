@@ -149,6 +149,25 @@ def trade_in(top_player_stats, player, team, expected_week_num):
     return new_player, top_player_stats
 
 
+def player_assignment(player, available_players):
+    """ Confirms players are available in the data before assigning.
+
+    Certain players, mostly rookies, are not available in the nflgame live json
+    data, thus causing issues with live score calculation. 
+    :param player: The player position being assigned.
+    :param available_players: The available players to pick from. 
+    """
+    not_assigned = True
+    while not_assigned:
+        player = random.choice(available_players)
+        try:
+            nflgame.find(player[0])[0]
+            not_assigned = False
+        except:
+            not_assigned = True
+        available_players.remove(player)
+
+
 def get_random_qbs(teams, players, week_num):
     """ Randomly selects 1 top quarterbacks for each team.
 
@@ -170,13 +189,9 @@ def get_random_qbs(teams, players, week_num):
 
     for team in teams:
         if not team.starred_position == "qb1":
-            qb1 = random.choice(top_qb_stats)
-            team.qb1 = qb1
-            top_qb_stats.remove(qb1)
+            player_assignment(team.qb1, top_qb_stats)
         if not team.starred_position == "qb2":
-            qb2 = random.choice(top_qb_stats)
-            team.qb2 = qb2
-            top_qb_stats.remove(qb2)
+            player_assignment(team.qb2, top_qb_stats)
     return top_qb_stats
 
 
@@ -199,17 +214,11 @@ def get_random_wrs(teams, players, week_num):
         top_wr_stats.append([name, round(average_score, 2)])
     for team in teams:
         if not team.starred_position == "wr1":
-            wr1 = random.choice(top_wr_stats)
-            team.wr1 = wr1
-            top_wr_stats.remove(wr1)
+            player_assignment(team.wr1, top_wr_stats)
         if not team.starred_position == "wr2":
-            wr2 = random.choice(top_wr_stats)
-            team.wr2 = wr2
-            top_wr_stats.remove(wr2)
+            player_assignment(team.wr2, top_wr_stats)
         if not team.starred_position == "wr3":
-            wr3 = random.choice(top_wr_stats)
-            team.wr3 = wr3
-            top_wr_stats.remove(wr3)
+            player_assignment(team.wr3, top_wr_stats)
     return top_wr_stats
 
 
@@ -232,17 +241,11 @@ def get_random_rbs(teams, players, week_num):
         top_rb_stats.append([name, round(average_score, 2)])
     for team in teams:
         if not team.starred_position == "rb1":
-            rb1 = random.choice(top_rb_stats)
-            team.rb1 = rb1
-            top_rb_stats.remove(rb1)
+            player_assignment(team.rb1, top_rb_stats)
         if not team.starred_position == "rb2":
-            rb2 = random.choice(top_rb_stats)
-            team.rb2 = rb2
-            top_rb_stats.remove(rb2)
+            player_assignment(team.rb2, top_rb_stats)
         if not team.starred_position == "rb3":
-            rb3 = random.choice(top_rb_stats)
-            team.rb3 = rb3
-            top_rb_stats.remove(rb3)
+            player_assignment(team.rb3, top_rb_stats)
     return top_rb_stats
 
 
