@@ -72,7 +72,7 @@ def view_all_teams(league_name):
     """
     games = get_games(WEEK_NUMBER)
     high_scores = get_high_scores(teams, WEEK_NUMBER)
-    return render_template("view_all_teams.html", week_num=WEEK_NUMBER, league_name=league_name, teams=teams, games=games, high_scores=high_scores)
+    return render_template("view_all_teams.html", week_num=WEEK_NUMBER, league_name=league_name, games=games, high_scores=high_scores)
 
 @app.route("/team/<league_name>/<team_name>", methods=['GET', 'POST'])
 def view_team(league_name, team_name):

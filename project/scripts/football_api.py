@@ -62,6 +62,7 @@ def get_player_scores(team, expected_week_num):
 
     :param team: Team who's players' scores are being queried
     """    
+    team.this_week_score = 0
     team.qb1 = update_live_player_score(team, team.qb1, expected_week_num)
     team.qb2 = update_live_player_score(team, team.qb2, expected_week_num)
     team.wr1 = update_live_player_score(team, team.wr1, expected_week_num)
@@ -80,7 +81,7 @@ def update_live_player_score(team, player, expected_week_num):
     """
     year, week_num = get_year_week()
     player_score = 0
-    if week_num == expected_week_num-1:
+    if week_num == expected_week_num:
         player_obj = nflgame.find(player[0])[0]
         player_stats = player_obj.stats(year, week=week_num)
         player_score = get_player_score(player_stats)
