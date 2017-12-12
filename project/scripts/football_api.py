@@ -166,7 +166,7 @@ def player_assignment(player, available_players):
         except:
             not_assigned = True
         available_players.remove(player)
-
+    return player
 
 def get_random_qbs(teams, players, week_num):
     """ Randomly selects 1 top quarterbacks for each team.
@@ -189,9 +189,9 @@ def get_random_qbs(teams, players, week_num):
 
     for team in teams:
         if not team.starred_position == "qb1":
-            player_assignment(team.qb1, top_qb_stats)
+            team.qb1 = player_assignment(team.qb1, top_qb_stats)
         if not team.starred_position == "qb2":
-            player_assignment(team.qb2, top_qb_stats)
+            team.qb2 = player_assignment(team.qb2, top_qb_stats)
     return top_qb_stats
 
 
@@ -214,11 +214,11 @@ def get_random_wrs(teams, players, week_num):
         top_wr_stats.append([name, round(average_score, 2)])
     for team in teams:
         if not team.starred_position == "wr1":
-            player_assignment(team.wr1, top_wr_stats)
+            team.wr1 = player_assignment(team.wr1, top_wr_stats)
         if not team.starred_position == "wr2":
-            player_assignment(team.wr2, top_wr_stats)
+            team.wr2 = player_assignment(team.wr2, top_wr_stats)
         if not team.starred_position == "wr3":
-            player_assignment(team.wr3, top_wr_stats)
+            team.wr3 = player_assignment(team.wr3, top_wr_stats)
     return top_wr_stats
 
 
@@ -241,11 +241,11 @@ def get_random_rbs(teams, players, week_num):
         top_rb_stats.append([name, round(average_score, 2)])
     for team in teams:
         if not team.starred_position == "rb1":
-            player_assignment(team.rb1, top_rb_stats)
+            team.rb1 = player_assignment(team.rb1, top_rb_stats)
         if not team.starred_position == "rb2":
-            player_assignment(team.rb2, top_rb_stats)
+            team.rb2 = player_assignment(team.rb2, top_rb_stats)
         if not team.starred_position == "rb3":
-            player_assignment(team.rb3, top_rb_stats)
+            team.rb3 = player_assignment(team.rb3, top_rb_stats)
     return top_rb_stats
 
 
